@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Acuatica May</title>
+    <style>
+      body {
+        font-family: Arial;
+        text-align: center;
+        margin-top: 0;
+      }
+      .banner {
+        object-fit: cover;
+      }
+
+      input {
+        font-size: 20px;
+        padding: 10px;
+      }
+      button {
+        border-radius: 10px;
+        font-size: 20px;
+        padding: 10px 20px;
+      }
+      button:hover {
+        background-color: #d3d3d3;
+        transition: background-color 0.5s;
+      }
+      .ok {
+        color: green;
+      }
+      .error,
+      .vencido {
+        color: red;
+      }
+    </style>
+  </head>
+
+  <body>
+    <img
+      class="banner"
+      src="{% static 'clientes/img/banner_acuatica.jpeg' %}"
+      width="100%"
+      height="300"
+    />
+
+    <h1>ACUATICA MAY Bienvenid@</h1>
+
+    <img src="{% static 'clientes/img/Logo_acuatica.jpeg' %}" width="200" />
+
+    <form method="post">
+      {% csrf_token %}
+      <input
+        type="text"
+        name="matricula"
+        placeholder="Ingrese su matrícula"
+        required
+        autofocus
+      />
+      <br /><br />
+      <button type="submit">Entrar</button>
+    </form>
+
+    {% if mensaje %}
+    <h2 class="{{ estado }}">{{ mensaje }}</h2>
+    {% endif %}
+  </body>
+</html>
