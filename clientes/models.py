@@ -24,6 +24,7 @@ class Cliente(models.Model):
 
 class Membresia(models.Model):
     TIPOS = [
+        ('VISITA', 'Visita'),
         ('MENSUAL', 'Mensual'),
         ('TRIMESTRAL', 'Trimestral'),
         ('ANUAL', 'Anual'),
@@ -37,7 +38,9 @@ class Membresia(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.fecha_fin:
-            if self.tipo == 'MENSUAL':
+            if self.tipo == 'VISITA':
+                self.fecha_fin = self.fecha_inicio + timedelta(days=0)
+            elif self.tipo == 'MENSUAL':
                 self.fecha_fin = self.fecha_inicio + timedelta(days=30)
             elif self.tipo == 'TRIMESTRAL':
                 self.fecha_fin = self.fecha_inicio + timedelta(days=90)

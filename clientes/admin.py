@@ -20,6 +20,7 @@ class MembresiaAdmin(admin.ModelAdmin):
     )
     list_filter = ('tipo', 'fecha_fin')
     search_fields = ('cliente__nombre', 'cliente__matricula')
+    autocomplete_fields = ('cliente',)  # 🔍 buscador por matrícula/nombre
 
     def estado(self, obj):
         if obj.fecha_fin and obj.fecha_fin < timezone.now().date():
@@ -69,7 +70,9 @@ class ClienteAdmin(admin.ModelAdmin):
     def ultima_entrada(self, obj):
         entrada = obj.registroentrada_set.order_by('-fecha_hora').first()
         if entrada:
-            return entrada.fecha_hora.strftime('%Y-%m-%d %H:%M')
+            return entrada.fecha_hora.astimezone(
+                timezone.get_current_timezone()
+            ).strftime('%Y-%m-%d %H:%M')
         return "Nunca"
 
     ultima_entrada.short_description = "Última entrada"
