@@ -64,6 +64,13 @@
 
     {% if mensaje %}
     <h2 class="{{ estado }}">{{ mensaje }}</h2>
+    {% endif %} {% if mensaje %}
+    <script>
+      // Tiempo en milisegundos (3000 = 3 segundos)
+      setTimeout(function () {
+        window.location.href = window.location.pathname;
+      }, 3000);
+    </script>
     {% endif %}
   </body>
 </html>
